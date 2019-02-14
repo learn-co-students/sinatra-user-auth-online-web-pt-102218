@@ -6,8 +6,9 @@ gem 'activerecord', '4.2', :require => 'active_record'
 gem 'sinatra-activerecord'
 gem 'rake'
 gem 'require_all'
-gem 'sqlite3'
+
 gem 'thin'
+gem 'sqlite3', '~> 1.3.6'
 gem 'shotgun'
 gem 'pry'
 
