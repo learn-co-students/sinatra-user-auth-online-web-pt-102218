@@ -16,11 +16,11 @@ class ApplicationController < Sinatra::Base
   end
 
   post '/registrations' do
+    puts params 
     @user = User.new(name: params["name"], email: params["email"], password: params["password"])
     @user.save
     session[:user_id] = @user.id
     redirect '/users/home'
-    erb :'/users/home'
   end
 
   get '/sessions/login' do
@@ -33,7 +33,7 @@ class ApplicationController < Sinatra::Base
       redirect '/users/home'
     else
       @error="Invalid email or password"
-      erb :'/sessions/login'
+      redirect '/sessions/login'
     end
   end
 
