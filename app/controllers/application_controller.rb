@@ -20,6 +20,7 @@ class ApplicationController < Sinatra::Base
     @user.save
     session[:user_id] = @user.id
     redirect '/users/home'
+    erb :'/users/home'
   end
 
   get '/sessions/login' do
@@ -27,8 +28,13 @@ class ApplicationController < Sinatra::Base
   end
 
   post '/sessions' do
-    @user = User.find_by(email: params["email"], password: params["password"])
-    session[:user_id] = @user.id
+    if @user = User.find_by(email: params["email"], password: params["password"])
+      session[:user_id] = @user.id
+      redirect '/users/home'
+    else
+      @error="Invalid email or password"
+      erb :'/sessions/login'
+    end
   end
 
   get '/users/home' do
@@ -38,6 +44,7 @@ class ApplicationController < Sinatra::Base
   
   get '/sessions/logout' do
     session.clear
-    erb :'/users/home'
+    redirect '/'
+    erb :home
   end
 end
